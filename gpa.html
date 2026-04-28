@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>성적계산기 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .gpa-wrap {
+        max-width: 900px;
+        margin: 90px auto 40px;
+        padding: 0 20px;
+      }
+      .gpa-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+      }
+      .gpa-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .gpa-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+      .gpa-body {
+        padding: 16px 20px;
+      }
+      .gpa-grid {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .gpa-grid th,
+      .gpa-grid td {
+        border-bottom: 1px solid #e5e7eb;
+        padding: 10px;
+        text-align: center;
+      }
+      .gpa-grid th {
+        background: #f8fafc;
+        font-weight: 700;
+        color: #374151;
+      }
+      .gpa-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 12px;
+      }
+      .btn {
+        padding: 10px 14px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #f3f4f6;
+        color: #111827;
+        cursor: pointer;
+      }
+      .btn.primary {
+        background: #2563eb;
+        color: #fff;
+        border-color: #2563eb;
+      }
+      .gpa-footer {
+        padding: 16px 20px;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .gpa-result {
+        font-weight: 700;
+        color: #111827;
+      }
+      .gpa-note {
+        font-size: 12px;
+        color: #6b7280;
+      }
+      .small {
+        font-size: 12px;
+        color: #6b7280;
+      }
+      input[type='text'],
+      select,
+      input[type='number'] {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+      }
+      .center {
+        text-align: center;
+      }
+      @media (max-width: 640px) {
+        .gpa-grid th:nth-child(2),
+        .gpa-grid td:nth-child(2) {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link"><h2>CampusTalk</h2></a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item dropdown">
+            <a href="utkos.html" class="nav-link">동아리 ▼</a>
+            <ul class="dropdown-menu">
+              <li><a href="utksa.html" class="dropdown-link">UTKSA</a></li>
+              <li><a href="utkos.html" class="dropdown-link">UTKOS</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#board" class="nav-link">게시판</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">로그인</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span><span class="bar"></span
+          ><span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="gpa-wrap">
+      <div class="gpa-card">
+        <div class="gpa-header">
+          <h3 class="gpa-title">과목별 성적 계산기</h3>
+          <div class="small">
+            예: MATA31 · 항목별 비중 합계는 100%여야 합니다
+          </div>
+        </div>
+        <div class="gpa-body">
+          <div
+            style="
+              display: flex;
+              gap: 12px;
+              margin-bottom: 12px;
+              align-items: center;
+            "
+          >
+            <div style="flex: 1">
+              <input
+                id="courseTitle"
+                type="text"
+                placeholder="과목 코드/이름 (예: MATA31)"
+              />
+            </div>
+            <button id="newCourse" class="btn">새 과목</button>
+          </div>
+          <table class="gpa-grid" id="courseTable">
+            <thead>
+              <tr>
+                <th style="width: 46%">항목명</th>
+                <th style="width: 20%">비중(%)</th>
+                <th style="width: 30%">점수(%)</th>
+                <th style="width: 4%">-</th>
+              </tr>
+            </thead>
+            <tbody id="courseTbody"></tbody>
+          </table>
+          <div class="gpa-actions">
+            <button id="addComponent" class="btn">항목 추가</button>
+            <button id="clearComponents" class="btn">초기화</button>
+            <button id="calcCourse" class="btn primary">계산</button>
+          </div>
+        </div>
+        <div class="gpa-footer">
+          <div class="gpa-result">
+            최종 성적: <span id="courseResult">0.00%</span>
+          </div>
+          <div>
+            <button id="saveCourse" class="btn primary">저장</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gpa-wrap">
+      <div class="gpa-card">
+        <div class="gpa-header">
+          <h3 class="gpa-title">내 저장된 과목</h3>
+          <div class="small" id="courseUserHint">
+            로그인 후 저장/불러오기 가능
+          </div>
+        </div>
+        <div
+          class="gpa-body"
+          id="savedCourses"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      // ================= 과목별 성적 계산기 =================
+      function getCurrentUser() {
+        try {
+          const local = localStorage.getItem('campusTalkCurrentUser');
+          const session = sessionStorage.getItem('campusTalkCurrentUser');
+          return local
+            ? JSON.parse(local)
+            : session
+            ? JSON.parse(session)
+            : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      const courseKey = (user) =>
+        `campusTalkCourses:${(user && user.email) || 'guest'}`;
+      function loadUserCourses() {
+        const user = getCurrentUser();
+        try {
+          return JSON.parse(localStorage.getItem(courseKey(user)) || '[]');
+        } catch (e) {
+          return [];
+        }
+      }
+      function saveUserCourses(list) {
+        const user = getCurrentUser();
+        try {
+          localStorage.setItem(courseKey(user), JSON.stringify(list));
+        } catch (e) {}
+      }
+
+      const courseTbody = document.getElementById('courseTbody');
+      const courseTitle = document.getElementById('courseTitle');
+      const courseResult = document.getElementById('courseResult');
+      const courseUserHint = document.getElementById('courseUserHint');
+
+      function createComponentRow(data = {}) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input type="text" class="c-name" placeholder="Assignment" value="${(
+            data.name || ''
+          ).replace(/\"/g, '&quot;')}"/></td>
+          <td><input type="number" class="c-weight" min="0" max="100" step="0.01" placeholder="예: 20" value="${
+            data.weight || ''
+          }"/></td>
+          <td><input type="number" class="c-pct" min="0" max="100" step="0.01" placeholder="예: 92" value="${
+            data.pct || ''
+          }"/></td>
+          <td><button class="btn btn-del">✕</button></td>
+        `;
+        tr.querySelector('.btn-del').addEventListener('click', () => {
+          tr.remove();
+        });
+        return tr;
+      }
+
+      function readComponents() {
+        return Array.from(document.querySelectorAll('#courseTbody tr')).map(
+          (tr) => ({
+            name: tr.querySelector('.c-name').value.trim(),
+            weight: parseFloat(tr.querySelector('.c-weight').value),
+            pct: parseFloat(tr.querySelector('.c-pct').value),
+          })
+        );
+      }
+
+      function calcCourse() {
+        const comps = readComponents();
+        // 유효한 항목(비중/점수 모두 숫자)만 계산에 포함
+        const valid = comps.filter(
+          (c) => isFinite(c.weight) && isFinite(c.pct)
+        );
+        if (valid.length === 0) {
+          courseResult.textContent = '점수(%)를 입력하세요';
+          return null;
+        }
+        const weightSum = valid.reduce((s, c) => s + c.weight, 0);
+        if (Math.abs(weightSum - 100) > 0.5) {
+          courseResult.textContent = '비중 합계 100% 필요';
+          return null;
+        }
+        const result = valid.reduce((s, c) => s + c.pct * (c.weight / 100), 0);
+        courseResult.textContent = result.toFixed(2) + '%';
+        return result;
+      }
+
+      function renderSavedCourses() {
+        const user = getCurrentUser();
+        courseUserHint.textContent = user
+          ? (user.name || user.email) + ' 저장됨'
+          : '로그인 후 저장/불러오기 가능';
+        const wrap = document.getElementById('savedCourses');
+        wrap.innerHTML = '';
+        const items = loadUserCourses();
+        if (items.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'small';
+          empty.style.cssText = 'color:#6b7280;';
+          empty.textContent = '저장된 과목이 없습니다.';
+          wrap.appendChild(empty);
+          return;
+        }
+        items.forEach((it, idx) => {
+          const card = document.createElement('div');
+          card.style.cssText =
+            'border:1px solid #e5e7eb; border-radius:12px; padding:12px; display:flex; flex-direction:column; gap:6px;';
+          card.innerHTML = `
+            <div style="font-weight:700; color:#111827;">${
+              it.title || '무제'
+            }</div>
+            <div class="small">최종: ${
+              isFinite(it.finalPct) ? it.finalPct.toFixed(2) + '%' : '-'
+            } · 항목 ${
+            Array.isArray(it.components) ? it.components.length : 0
+          }개</div>
+            <div style="display:flex; gap:8px; justify-content:flex-end;">
+              <button class="btn btn-load">불러오기</button>
+              <button class="btn btn-del">삭제</button>
+            </div>
+          `;
+          card.querySelector('.btn-load').addEventListener('click', () => {
+            loadCourseIntoEditor(it);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+          card.querySelector('.btn-del').addEventListener('click', () => {
+            if (!confirm('삭제하시겠습니까?')) return;
+            const list = loadUserCourses();
+            list.splice(idx, 1);
+            saveUserCourses(list);
+            renderSavedCourses();
+          });
+          wrap.appendChild(card);
+        });
+      }
+
+      function loadCourseIntoEditor(course) {
+        courseTitle.value = course.title || '';
+        courseTbody.innerHTML = '';
+        (course.components || []).forEach((c) =>
+          courseTbody.appendChild(createComponentRow(c))
+        );
+        calcCourse();
+      }
+
+      document.getElementById('addComponent').addEventListener('click', () => {
+        courseTbody.appendChild(createComponentRow({}));
+      });
+      document
+        .getElementById('clearComponents')
+        .addEventListener('click', () => {
+          if (!confirm('항목을 모두 초기화할까요?')) return;
+          courseTbody.innerHTML = '';
+          courseResult.textContent = '0.00%';
+        });
+      document.getElementById('calcCourse').addEventListener('click', () => {
+        calcCourse();
+      });
+      document.getElementById('newCourse').addEventListener('click', () => {
+        courseTitle.value = '';
+        courseTbody.innerHTML = '';
+        courseResult.textContent = '0.00%';
+      });
+      document.getElementById('saveCourse').addEventListener('click', () => {
+        const user = getCurrentUser();
+        if (!user) {
+          alert('로그인이 필요합니다.');
+          return;
+        }
+        const finalPct = calcCourse();
+        if (finalPct === null) {
+          alert('비중 합계가 100%가 되도록 입력해주세요.');
+          return;
+        }
+        const title = courseTitle.value.trim();
+        if (!title) {
+          alert('과목명을 입력하세요.');
+          return;
+        }
+        const components = readComponents();
+        const list = loadUserCourses();
+        const existingIdx = list.findIndex(
+          (c) => (c.title || '').toLowerCase() === title.toLowerCase()
+        );
+        const item = {
+          title,
+          components,
+          finalPct,
+          updatedAt: new Date().toISOString(),
+        };
+        if (existingIdx >= 0) list[existingIdx] = item;
+        else list.push(item);
+        saveUserCourses(list);
+        renderSavedCourses();
+        alert('저장되었습니다.');
+      });
+
+      // 초기 상태 구성: 기본 항목 4개
+      if (courseTbody.children.length === 0) {
+        ['Assignment', 'Quiz', 'Midterm', 'Final'].forEach((n, i) => {
+          const defaults = [20, 10, 30, 40][i];
+          courseTbody.appendChild(
+            createComponentRow({ name: n, weight: defaults })
+          );
+        });
+      }
+      renderSavedCourses();
+    </script>
+  </body>
+</html>

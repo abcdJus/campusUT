@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자유게시판 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="board-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link">
+            <h2>CampusTalk</h2>
+          </a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item dropdown">
+            <a href="index.html#board" class="nav-link">게시판 ▼</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="free-board.html" class="dropdown-link"
+                  >💬 자유게시판</a
+                >
+              </li>
+              <li>
+                <a href="class-info.html" class="dropdown-link">📚 수업정보</a>
+              </li>
+              <li>
+                <a href="exam-info.html" class="dropdown-link">📝 시험정보</a>
+              </li>
+              <li>
+                <a href="job-info.html" class="dropdown-link">💼 취업정보</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="utkos.html" class="nav-link">동아리 ▼</a>
+            <ul class="dropdown-menu">
+              <li><a href="utksa.html" class="dropdown-link">UTKSA</a></li>
+              <li><a href="utkos.html" class="dropdown-link">UTKOS</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#market" class="nav-link">중고거래</a>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#timetable" class="nav-link">시간표</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">로그인</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="board-page">
+      <div class="board-header">
+        <div class="container">
+          <div class="board-nav">
+            <a href="index.html" class="back-link">← 홈으로</a>
+            <h1 class="board-title">💬 자유게시판</h1>
+            <a href="write-post.html" class="write-post-btn">글쓰기</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-content">
+        <div class="container">
+          <div class="board-tools">
+            <div class="search-box">
+              <input type="text" placeholder="게시글 검색..." />
+              <button class="search-btn">🔍</button>
+            </div>
+          </div>
+
+          <div class="posts-list"></div>
+
+          <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">4</button>
+            <button class="page-btn">5</button>
+            <button class="page-btn next">다음 ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="board-script.js"></script>
+  </body>
+</html>

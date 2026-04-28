@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>대학생 커뮤니티 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="#home" class="logo-link">
+            <h2>CampusTalk</h2>
+          </a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item dropdown">
+            <a href="#board" class="nav-link">게시판 ▼</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="free-board.html" class="dropdown-link"
+                  >💬 자유게시판</a
+                >
+              </li>
+              <li>
+                <a href="class-info.html" class="dropdown-link">📚 수업정보</a>
+              </li>
+              <li>
+                <a href="exam-info.html" class="dropdown-link">📝 시험정보</a>
+              </li>
+              <li>
+                <a href="job-info.html" class="dropdown-link">💼 취업정보</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a href="utkos.html" class="nav-link">동아리 ▼</a>
+            <ul class="dropdown-menu">
+              <li><a href="utksa.html" class="dropdown-link">UTKSA</a></li>
+              <li><a href="utkos.html" class="dropdown-link">UTKOS</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="market.html" class="nav-link">중고거래</a>
+          </li>
+          <li class="nav-item">
+            <a href="timetable.html" class="nav-link">시간표</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">로그인</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">CampusTalk</h1>
+        <p class="hero-subtitle">대학생들의 실시간 커뮤니티</p>
+        <div class="hero-buttons">
+          <button class="cta-button primary">가입하기</button>
+          <button class="cta-button secondary">둘러보기</button>
+        </div>
+        <div class="hero-search">
+          <div class="hero-search-row">
+            <input
+              id="heroSearchInput"
+              type="text"
+              placeholder="통합 검색: 제목/내용을 입력하세요"
+            />
+            <button id="heroSearchBtn">검색</button>
+          </div>
+          <div class="hero-tags">
+            <span class="tag" data-q="모집">#모집</span>
+            <span class="tag" data-q="시험">#시험</span>
+            <span class="tag" data-q="과제">#과제</span>
+            <span class="tag" data-q="인턴">#인턴</span>
+            <span class="tag" data-q="동아리">#동아리</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recent" class="recent">
+      <div class="container">
+        <h2 class="section-title">최근 게시글</h2>
+        <div id="recentPosts" class="recent-grid"></div>
+      </div>
+    </section>
+
+    <section id="homeFeed" class="home-feed">
+      <div class="container">
+        <div class="home-main">
+          <aside class="left-profile">
+            <div class="profile-card">
+              <div class="avatar">🙂</div>
+              <div class="name">캠퍼스톡 사용자</div>
+              <div class="meta">환영합니다!</div>
+              <div class="profile-actions">
+                <a href="my-info.html" class="btn small">내 정보</a>
+                <a href="login.html" class="btn small secondary">로그인</a>
+              </div>
+              <div class="activity">
+                <div class="stat">
+                  <div class="label">최근 글</div>
+                  <div class="value" id="statPosts">0</div>
+                </div>
+                <div class="stat">
+                  <div class="label">댓글</div>
+                  <div class="value" id="statComments">0</div>
+                </div>
+                <div class="stat">
+                  <div class="label">좋아요</div>
+                  <div class="value" id="statLikes">0</div>
+                </div>
+              </div>
+              <div class="level">
+                <span class="pill">Lv.1 초심자</span>
+                <div class="badges">
+                  <span class="badge-icon">⭐</span>
+                  <span class="badge-icon">🔥</span>
+                </div>
+              </div>
+              <div class="quick-links">
+                <a href="free-board.html">자유게시판</a>
+                <a href="class-info.html">수업정보</a>
+                <a href="exam-info.html">시험정보</a>
+                <a href="job-info.html">취업정보</a>
+              </div>
+            </div>
+          </aside>
+          <div class="feed-center">
+            <div class="feed-section" data-board="free">
+              <div class="feed-header">
+                <h3>자유게시판</h3>
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <div class="feed-tabs" data-board="free">
+                    <button class="tab active" data-sort="recent">최신</button>
+                    <button class="tab" data-sort="hot">핫</button>
+                  </div>
+                  <a href="free-board.html" class="more-link">더보기</a>
+                </div>
+              </div>
+              <ul id="feed-free" class="feed-list"></ul>
+            </div>
+            <div class="feed-section" data-board="class">
+              <div class="feed-header">
+                <h3>수업정보</h3>
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <div class="feed-tabs" data-board="class">
+                    <button class="tab active" data-sort="recent">최신</button>
+                    <button class="tab" data-sort="hot">핫</button>
+                  </div>
+                  <a href="class-info.html" class="more-link">더보기</a>
+                </div>
+              </div>
+              <ul id="feed-class" class="feed-list"></ul>
+            </div>
+            <div class="feed-section" data-board="exam">
+              <div class="feed-header">
+                <h3>시험정보</h3>
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <div class="feed-tabs" data-board="exam">
+                    <button class="tab active" data-sort="recent">최신</button>
+                    <button class="tab" data-sort="hot">핫</button>
+                  </div>
+                  <a href="exam-info.html" class="more-link">더보기</a>
+                </div>
+              </div>
+              <ul id="feed-exam" class="feed-list"></ul>
+            </div>
+            <div class="feed-section" data-board="job">
+              <div class="feed-header">
+                <h3>취업정보</h3>
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <div class="feed-tabs" data-board="job">
+                    <button class="tab active" data-sort="recent">최신</button>
+                    <button class="tab" data-sort="hot">핫</button>
+                  </div>
+                  <a href="job-info.html" class="more-link">더보기</a>
+                </div>
+              </div>
+              <ul id="feed-job" class="feed-list"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="board" class="board">
+      <div class="container">
+        <h2 class="section-title">게시판</h2>
+        <div class="board-tile-grid">
+          <a href="free-board.html" class="board-tile">
+            <div class="board-tile-icon">💬</div>
+            <div class="board-tile-title">자유게시판</div>
+            <div class="board-tile-desc">일상, 고민, 정보 나눔</div>
+          </a>
+          <a href="class-info.html" class="board-tile">
+            <div class="board-tile-icon">📚</div>
+            <div class="board-tile-title">수업정보</div>
+            <div class="board-tile-desc">수업/과제/자료 공유</div>
+          </a>
+          <a href="exam-info.html" class="board-tile">
+            <div class="board-tile-icon">📝</div>
+            <div class="board-tile-title">시험정보</div>
+            <div class="board-tile-desc">시험 일정/팁/후기</div>
+          </a>
+          <a href="job-info.html" class="board-tile">
+            <div class="board-tile-icon">💼</div>
+            <div class="board-tile-title">취업정보</div>
+            <div class="board-tile-desc">공고/팁/포트폴리오</div>
+          </a>
+          <a href="utksa.html" class="board-tile">
+            <div class="board-tile-icon">🎯</div>
+            <div class="board-tile-title">UTKSA</div>
+            <div class="board-tile-desc">모집, 활동 공유</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>CampusTalk</h3>
+            <p>대학생을 위한 최고의 커뮤니티 플랫폼</p>
+          </div>
+          <div class="footer-section">
+            <h4>서비스</h4>
+            <ul>
+              <li><a href="#board">게시판</a></li>
+              <li><a href="market.html">중고거래</a></li>
+              <li><a href="timetable.html">시간표</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>지원</h4>
+            <ul>
+              <li><a href="#help">도움말</a></li>
+              <li><a href="#contact">문의하기</a></li>
+              <li><a href="#terms">이용약관</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 CampusTalk. 모든 권리 보유.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

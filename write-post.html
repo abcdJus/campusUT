@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>글쓰기 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="write-post-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link">
+            <h2>CampusTalk</h2>
+          </a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item dropdown">
+            <a href="index.html#board" class="nav-link">게시판 ▼</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="free-board.html" class="dropdown-link"
+                  >💬 자유게시판</a
+                >
+              </li>
+              <li>
+                <a href="class-info.html" class="dropdown-link">📚 수업정보</a>
+              </li>
+              <li>
+                <a href="exam-info.html" class="dropdown-link">📝 시험정보</a>
+              </li>
+              <li>
+                <a href="job-info.html" class="dropdown-link">💼 취업정보</a>
+              </li>
+              <li>
+                <a href="utksa.html" class="dropdown-link">UTKSA</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#market" class="nav-link">중고거래</a>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#timetable" class="nav-link">시간표</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">로그인</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="write-post-page">
+      <div class="write-post-header">
+        <div class="container">
+          <div class="header-nav">
+            <a href="javascript:history.back()" class="back-link">← 뒤로가기</a>
+            <h1 class="page-title">✍️ 새 게시글 작성</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="write-post-content">
+        <div class="container">
+          <form class="write-post-form" id="writePostForm">
+            <div class="form-section">
+              <h3>게시판 선택</h3>
+              <div class="board-selector">
+                <label class="board-option">
+                  <input type="radio" name="board" value="free" checked />
+                  <span class="board-label">💬 자유게시판</span>
+                </label>
+                <label class="board-option">
+                  <input type="radio" name="board" value="class" />
+                  <span class="board-label">📚 수업정보</span>
+                </label>
+                <label class="board-option">
+                  <input type="radio" name="board" value="exam" />
+                  <span class="board-label">📝 시험정보</span>
+                </label>
+                <label class="board-option">
+                  <input type="radio" name="board" value="job" />
+                  <span class="board-label">💼 취업정보</span>
+                </label>
+                <label class="board-option">
+                  <input type="radio" name="board" value="club" />
+                  <span class="board-label">🎯 동아리</span>
+                </label>
+                <label class="board-option">
+                  <input type="radio" name="board" value="club-utkos" />
+                  <span class="board-label">UTKOS</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>제목</h3>
+              <input
+                type="text"
+                id="postTitle"
+                name="title"
+                placeholder="게시글 제목을 입력하세요"
+                required
+                maxlength="100"
+              />
+              <div class="char-count"><span id="titleCount">0</span>/100</div>
+            </div>
+
+            <div class="form-section">
+              <h3>내용</h3>
+              <textarea
+                id="postContent"
+                name="content"
+                placeholder="게시글 내용을 입력하세요"
+                required
+                rows="15"
+                maxlength="2000"
+              ></textarea>
+              <div class="char-count">
+                <span id="contentCount">0</span>/2000
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>첨부파일</h3>
+              <div class="file-upload">
+                <input
+                  type="file"
+                  id="fileUpload"
+                  multiple
+                  accept="image/*,.pdf,.doc,.docx,.txt"
+                />
+                <label for="fileUpload" class="file-upload-label">
+                  <span class="upload-icon">📎</span>
+                  파일 선택하기
+                </label>
+                <p class="file-hint">
+                  이미지, PDF, 문서 파일을 첨부할 수 있습니다 (최대 5개)
+                </p>
+              </div>
+              <div class="file-list" id="fileList"></div>
+            </div>
+
+            <div class="form-section">
+              <h3>게시글 옵션</h3>
+              <div class="post-options">
+                <label class="option-item">
+                  <input type="checkbox" id="anonymous" name="anonymous" />
+                  <span class="checkmark"></span>
+                  익명으로 작성
+                </label>
+                <label class="option-item">
+                  <input
+                    type="checkbox"
+                    id="allowComments"
+                    name="allowComments"
+                    checked
+                  />
+                  <span class="checkmark"></span>
+                  댓글 허용
+                </label>
+                <label class="option-item">
+                  <input
+                    type="checkbox"
+                    id="notifyReplies"
+                    name="notifyReplies"
+                  />
+                  <span class="checkmark"></span>
+                  댓글 알림 받기
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn-secondary"
+                onclick="history.back()"
+              >
+                취소
+              </button>
+              <button type="button" class="btn-preview">미리보기</button>
+              <button type="submit" class="btn-primary">게시하기</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="write-post-script.js"></script>
+  </body>
+</html>

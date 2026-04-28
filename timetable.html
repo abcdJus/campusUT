@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>시간표 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link"><h2>CampusTalk</h2></a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html#board" class="nav-link">게시판</a>
+          </li>
+          <li class="nav-item">
+            <a href="market.html" class="nav-link">중고거래</a>
+          </li>
+          <li class="nav-item">
+            <a href="timetable.html" class="nav-link">시간표</a>
+          </li>
+          <li class="nav-item">
+            <a href="course-search.html" class="nav-link">과목검색</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">로그인</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span><span class="bar"></span
+          ><span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="timetable" style="padding-top: 90px">
+      <div class="container">
+        <h2 class="section-title">시간표</h2>
+        <div class="timetable-container">
+          <div class="timetable-header">
+            <button class="semester-selector">2024년 1학기</button>
+            <div class="timetable-actions">
+              <button class="add-course-btn">과목 추가</button>
+              <button class="share-timetable-btn">공유하기</button>
+            </div>
+          </div>
+          <div class="timetable-grid">
+            <div class="time-column">
+              <div class="time-slot">09:00</div>
+              <div class="time-slot">10:30</div>
+              <div class="time-slot">12:00</div>
+              <div class="time-slot">13:30</div>
+              <div class="time-slot">15:00</div>
+              <div class="time-slot">16:30</div>
+              <div class="time-slot">18:00</div>
+            </div>
+            <div class="day-column">
+              <div class="day-header">월</div>
+              <div class="course-slot" data-course="프로그래밍기초">
+                <div class="course-info">
+                  <h4>프로그래밍기초</h4>
+                  <p>공학관 101호</p>
+                </div>
+              </div>
+              <div class="course-slot" data-course="자료구조론">
+                <div class="course-info">
+                  <h4>자료구조론</h4>
+                  <p>공학관 201호</p>
+                </div>
+              </div>
+              <div class="course-slot" data-course="알고리즘">
+                <div class="course-info">
+                  <h4>알고리즘</h4>
+                  <p>도서관 세미나실</p>
+                </div>
+              </div>
+            </div>
+            <div class="day-column">
+              <div class="day-header">화</div>
+              <div class="course-slot" data-course="웹개발">
+                <div class="course-info">
+                  <h4>웹개발</h4>
+                  <p>공학관 301호</p>
+                </div>
+              </div>
+              <div class="course-slot" data-course="데이터베이스">
+                <div class="course-info">
+                  <h4>데이터베이스</h4>
+                  <p>공학관 401호</p>
+                </div>
+              </div>
+            </div>
+            <div class="day-column">
+              <div class="day-header">수</div>
+              <div class="course-slot" data-course="프로그래밍기초">
+                <div class="course-info">
+                  <h4>프로그래밍기초</h4>
+                  <p>공학관 101호</p>
+                </div>
+              </div>
+              <div class="course-slot" data-course="자료구조론">
+                <div class="course-info">
+                  <h4>자료구조론</h4>
+                  <p>공학관 201호</p>
+                </div>
+              </div>
+            </div>
+            <div class="day-column">
+              <div class="day-header">목</div>
+              <div class="course-slot" data-course="웹개발">
+                <div class="course-info">
+                  <h4>웹개발</h4>
+                  <p>공학관 301호</p>
+                </div>
+              </div>
+              <div class="course-slot" data-course="데이터베이스">
+                <div class="course-info">
+                  <h4>데이터베이스</h4>
+                  <p>공학관 401호</p>
+                </div>
+              </div>
+            </div>
+            <div class="day-column">
+              <div class="day-header">금</div>
+              <div class="course-slot" data-course="프로그래밍기초">
+                <div class="course-info">
+                  <h4>프로그래밍기초</h4>
+                  <p>공학관 101호</p>
+                </div>
+              </div>
+              <div class="course-slot" data-course="자료구조론">
+                <div class="course-info">
+                  <h4>자료구조론</h4>
+                  <p>공학관 201호</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>

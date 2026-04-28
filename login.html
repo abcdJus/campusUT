@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인/회원가입 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="login-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link">
+            <h2>CampusTalk</h2>
+          </a>
+        </div>
+        <div class="nav-menu">
+          <a href="index.html" class="nav-link">홈으로 돌아가기</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="auth-container">
+      <div class="auth-box">
+        <div class="auth-tabs">
+          <button class="tab-btn active" data-tab="login">로그인</button>
+          <button class="tab-btn" data-tab="signup">회원가입</button>
+        </div>
+
+        <!-- 로그인 폼 -->
+        <div class="auth-form active" id="login-form">
+          <h2>로그인</h2>
+          <p class="form-subtitle">CampusTalk에 오신 것을 환영합니다</p>
+
+          <form class="form">
+            <div class="form-group">
+              <label for="login-email">이메일</label>
+              <input
+                type="email"
+                id="login-email"
+                placeholder="이메일을 입력하세요"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="login-password">비밀번호</label>
+              <input
+                type="password"
+                id="login-password"
+                placeholder="비밀번호를 입력하세요"
+                required
+              />
+            </div>
+
+            <div class="form-options">
+              <label class="checkbox-label">
+                <input type="checkbox" id="remember-me" />
+                <span class="checkmark"></span>
+                로그인 상태 유지
+              </label>
+              <a href="#" class="forgot-password">비밀번호 찾기</a>
+            </div>
+
+            <button type="submit" class="submit-btn">로그인</button>
+          </form>
+
+          <div class="social-login">
+            <p>간편 로그인</p>
+            <div class="social-buttons">
+              <button class="social-btn google">
+                <span class="social-icon">🔍</span>
+                Google
+              </button>
+              <button class="social-btn kakao">
+                <span class="social-icon">💛</span>
+                Kakao
+              </button>
+              <button class="social-btn naver">
+                <span class="social-icon">🟢</span>
+                Naver
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 회원가입 폼 -->
+        <div class="auth-form" id="signup-form">
+          <h2>회원가입</h2>
+          <p class="form-subtitle">CampusTalk의 새로운 멤버가 되어보세요</p>
+
+          <form class="form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="signup-name">이름</label>
+                <input
+                  type="text"
+                  id="signup-name"
+                  placeholder="이름을 입력하세요"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="signup-student-id">학번</label>
+                <input
+                  type="text"
+                  id="signup-student-id"
+                  placeholder="학번을 입력하세요"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="signup-email">이메일</label>
+              <input
+                type="email"
+                id="signup-email"
+                placeholder="이메일을 입력하세요"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="signup-password">비밀번호</label>
+              <input
+                type="password"
+                id="signup-password"
+                placeholder="비밀번호를 입력하세요"
+                required
+              />
+              <small class="password-hint"
+                >8자 이상, 영문/숫자/특수문자 조합</small
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="signup-password-confirm">비밀번호 확인</label>
+              <input
+                type="password"
+                id="signup-password-confirm"
+                placeholder="비밀번호를 다시 입력하세요"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="signup-university">대학교</label>
+              <select id="signup-university" required>
+                <option value="">대학교를 선택하세요</option>
+                <option value="seoul">서울대학교</option>
+                <option value="yonsei">연세대학교</option>
+                <option value="korea">고려대학교</option>
+                <option value="snu">성균관대학교</option>
+                <option value="hanyang">한양대학교</option>
+                <option value="other">기타</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="signup-major">전공</label>
+              <input
+                type="text"
+                id="signup-major"
+                placeholder="전공을 입력하세요"
+                required
+              />
+            </div>
+
+            <div class="form-options">
+              <label class="checkbox-label">
+                <input type="checkbox" id="agree-terms" required />
+                <span class="checkmark"></span>
+                <a href="#" class="terms-link">이용약관</a> 및
+                <a href="#" class="terms-link">개인정보처리방침</a>에 동의합니다
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="agree-marketing" />
+                <span class="checkmark"></span>
+                마케팅 정보 수신에 동의합니다 (선택)
+              </label>
+            </div>
+
+            <button type="submit" class="submit-btn">회원가입</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="login-script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>과목 검색 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link"><h2>CampusTalk</h2></a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html#board" class="nav-link">게시판</a>
+          </li>
+          <li class="nav-item">
+            <a href="gpa.html" class="nav-link">성적계산기</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">로그인</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span><span class="bar"></span
+          ><span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section" style="padding-top: 90px">
+      <div class="container page-with-sidebar">
+        <div class="main-content">
+          <h2 class="section-title">과목 검색</h2>
+          <div class="hero-search-row" style="margin-bottom: 12px">
+            <input
+              id="courseSearchInput"
+              type="text"
+              placeholder="ex) CSC108, MAT135, data structures"
+            />
+            <button id="courseSearchBtn">검색</button>
+          </div>
+
+          <div class="filters-bar" style="margin-bottom: 12px">
+            <select id="filterCampus">
+              <option value="">캠퍼스(전체)</option>
+              <option>St. George</option>
+              <option>Scarborough</option>
+              <option>Mississauga</option>
+            </select>
+            <select id="filterTerm">
+              <option value="">학기(전체)</option>
+              <option>F</option>
+              <option>S</option>
+              <option>Y</option>
+            </select>
+            <select id="filterDelivery">
+              <option value="">수업형태(전체)</option>
+              <option>In-Person</option>
+              <option>Online</option>
+              <option>Hybrid</option>
+            </select>
+            <select id="filterStatus">
+              <option value="">상태(전체)</option>
+              <option>Open</option>
+              <option>Waitlist</option>
+              <option>Full</option>
+            </select>
+            <select id="filterDay">
+              <option value="">요일(전체)</option>
+              <option value="Mon">Mon</option>
+              <option value="Tue">Tue</option>
+              <option value="Wed">Wed</option>
+              <option value="Thu">Thu</option>
+              <option value="Fri">Fri</option>
+            </select>
+            <input id="filterStart" type="time" />
+            <span style="opacity: 0.7">~</span>
+            <input id="filterEnd" type="time" />
+            <button id="filterClear" class="btn-clear">초기화</button>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              gap: 8px;
+              align-items: center;
+              flex-wrap: wrap;
+              margin-bottom: 12px;
+            "
+          >
+            <label style="font-size: 12px; color: #6b7280"
+              >데이터 파일(JSON):</label
+            >
+            <input
+              id="datasetFile"
+              type="file"
+              accept="application/json,.json"
+            />
+            <label style="font-size: 12px; color: #6b7280">또는 URL:</label>
+            <input
+              id="datasetUrl"
+              type="url"
+              placeholder="https://.../courses.json"
+              style="
+                flex: 1;
+                min-width: 240px;
+                padding: 8px 10px;
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+              "
+            />
+            <button id="loadUrlBtn" class="btn-clear">불러오기</button>
+            <span
+              id="datasetStatus"
+              class="small"
+              style="color: #6b7280"
+            ></span>
+          </div>
+
+          <div
+            id="resultsMeta"
+            class="small"
+            style="text-align: left; margin-bottom: 8px; color: #6b7280"
+          ></div>
+
+          <div id="courseResults" class="course-grid"></div>
+          <div style="display: flex; justify-content: center; margin-top: 12px">
+            <button
+              id="loadMoreBtn"
+              class="btn-clear"
+              style="padding: 10px 14px"
+            >
+              더 보기
+            </button>
+          </div>
+        </div>
+
+        <aside class="right-sidebar">
+          <div class="sidebar-section">
+            <h3>동아리</h3>
+            <div class="club-list">
+              <a class="club-item" href="utksa.html">
+                <span class="emoji">🎯</span>
+                <div>
+                  <div class="name">UTKSA</div>
+                  <div class="desc">학생회 활동 소식</div>
+                </div>
+              </a>
+              <a class="club-item" href="utkos.html">
+                <span class="emoji">🛠️</span>
+                <div>
+                  <div class="name">UTKOS</div>
+                  <div class="desc">코딩/알고리즘 활동</div>
+                </div>
+              </a>
+            </div>
+            <div class="sidebar-widget">
+              <h4>실시간 인기 글</h4>
+              <div class="sidebar-search">
+                <input
+                  id="sidebarSearchInput"
+                  type="text"
+                  placeholder="게시글 검색"
+                />
+                <button id="sidebarSearchBtn">검색</button>
+              </div>
+              <div id="sidebarHotList" class="sidebar-list"></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <script>
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => Array.from(document.querySelectorAll(s));
+      let allCourses = [];
+      let currentResults = [];
+      let viewLimit = 100;
+      const VIEW_STEP = 100;
+
+      async function loadCourses() {
+        try {
+          const res = await fetch('courses.json', { cache: 'no-store' });
+          return await res.json();
+        } catch (e) {
+          return [];
+        }
+      }
+      function normalize(str) {
+        return String(str || '').toLowerCase();
+      }
+      function intersectsTime(startA, endA, startB, endB) {
+        if (!startA || !endA || !startB || !endB) return true;
+        return !(endA <= startB || endB <= startA);
+      }
+      function hhmmToMinutes(t) {
+        if (!t) return null;
+        const [h, m] = t.split(':').map((x) => parseInt(x, 10));
+        return h * 60 + (m || 0);
+      }
+      function courseMatchesFilters(course, filters) {
+        if (filters.campus && (course.campus || '') !== filters.campus)
+          return false;
+        if (filters.term && (course.term || '') !== filters.term) return false;
+        if (filters.delivery && (course.delivery || '') !== filters.delivery)
+          return false;
+        if (filters.status && (course.status || '') !== filters.status)
+          return false;
+        if (!filters.day && !filters.start && !filters.end) return true;
+        const meetings = course.meetings || [];
+        const wantDay = filters.day;
+        const wantStart = filters.start ? hhmmToMinutes(filters.start) : null;
+        const wantEnd = filters.end ? hhmmToMinutes(filters.end) : null;
+        return meetings.some((m) => {
+          if (wantDay && m.day !== wantDay) return false;
+          if (!wantStart && !wantEnd) return true;
+          const ms = hhmmToMinutes(m.start);
+          const me = hhmmToMinutes(m.end);
+          return intersectsTime(ms, me, wantStart ?? ms, wantEnd ?? me);
+        });
+      }
+      function matchesKeyword(course, q) {
+        const key = normalize(q);
+        if (!key) return true;
+        const fields = [
+          course.code,
+          course.title,
+          course.dept,
+          course.desc,
+          course.delivery,
+          course.status,
+          (course.meetings || [])
+            .map((m) => `${m.campus} ${m.instructor} ${m.day}`)
+            .join(' '),
+        ];
+        return fields.some((f) => normalize(f).includes(key));
+      }
+      function updateMeta(total, shown) {
+        const meta = $('#resultsMeta');
+        meta.textContent = `총 ${total}개 중 ${shown}개 표시`;
+        $('#loadMoreBtn').style.display = shown < total ? '' : 'none';
+      }
+      // 사이드바 인기글: 로컬 저장된 게시글 최신 상위 5개 (단순 예시)
+      function renderSidebarHot() {
+        try {
+          const posts = JSON.parse(
+            localStorage.getItem('campusTalkPosts') || '[]'
+          )
+            .slice()
+            .sort(
+              (a, b) =>
+                (b.likes || 0) - (a.likes || 0) ||
+                new Date(b.timestamp) - new Date(a.timestamp)
+            )
+            .slice(0, 5);
+          const wrap = $('#sidebarHotList');
+          if (!wrap) return;
+          wrap.innerHTML = '';
+          posts.forEach((p) => {
+            const item = document.createElement('div');
+            item.className = 'sidebar-item';
+            item.innerHTML = `
+              <a href="post.html?id=${encodeURIComponent(p.id)}">${
+              p.title || '무제'
+            }</a>
+              <div class="sidebar-meta">👍 ${p.likes || 0} · ${new Date(
+              p.timestamp
+            ).toLocaleDateString()}</div>
+            `;
+            wrap.appendChild(item);
+          });
+        } catch (e) {}
+      }
+      function renderCourses(list) {
+        const wrap = $('#courseResults');
+        wrap.innerHTML = '';
+        if (!list || list.length === 0) {
+          const d = document.createElement('div');
+          d.className = 'small';
+          d.style.cssText = 'color:#6b7280; text-align:center; padding:16px;';
+          d.textContent = '검색 결과가 없습니다.';
+          wrap.appendChild(d);
+          updateMeta(0, 0);
+          return;
+        }
+        const slice = list.slice(0, viewLimit);
+        slice.forEach((c) => {
+          const card = document.createElement('div');
+          card.className = 'course-card';
+          const meets = (c.meetings || [])
+            .map(
+              (m) =>
+                `${m.day} ${m.start}-${m.end} · ${m.campus}${
+                  m.room ? ' · ' + m.room : ''
+                }`
+            )
+            .join('<br/>');
+          const statusClass =
+            c.status === 'Open'
+              ? 'open'
+              : c.status === 'Waitlist'
+              ? 'wait'
+              : 'full';
+          card.innerHTML = `
+            <div class="course-head">
+              <div class="course-code">${c.code}</div>
+              <div class="course-campus">${c.campus || ''}</div>
+            </div>
+            <div class="course-title">${c.title || ''}</div>
+            <div class="course-meta">${c.dept || ''} · ${c.term || ''} · ${
+            c.delivery || ''
+          } <span class="status-badge ${statusClass}">${
+            c.status || ''
+          }</span></div>
+            <div class="course-meetings">${meets || ''}</div>
+            <div class="course-actions">
+              <button class="add-to-timetable">시간표에 추가</button>
+            </div>
+          `;
+          card
+            .querySelector('.add-to-timetable')
+            .addEventListener('click', () => {
+              try {
+                const raw =
+                  localStorage.getItem('campusTalkTimetableCourses') || '[]';
+                const saved = JSON.parse(raw);
+                saved.push({
+                  code: c.code,
+                  title: c.title,
+                  dept: c.dept,
+                  term: c.term,
+                  delivery: c.delivery,
+                  status: c.status,
+                  meetings: c.meetings || [],
+                });
+                localStorage.setItem(
+                  'campusTalkTimetableCourses',
+                  JSON.stringify(saved)
+                );
+                alert('시간표에 추가되었습니다.');
+              } catch (e) {
+                alert('추가 중 오류가 발생했습니다.');
+              }
+            });
+          wrap.appendChild(card);
+        });
+        updateMeta(list.length, slice.length);
+      }
+      function gatherFilters() {
+        return {
+          campus: $('#filterCampus').value,
+          term: $('#filterTerm').value,
+          delivery: $('#filterDelivery').value,
+          status: $('#filterStatus').value,
+          day: $('#filterDay').value,
+          start: $('#filterStart').value,
+          end: $('#filterEnd').value,
+        };
+      }
+      function doSearch() {
+        const q = $('#courseSearchInput').value.trim();
+        const f = gatherFilters();
+        currentResults = allCourses
+          .filter((c) => matchesKeyword(c, q))
+          .filter((c) => courseMatchesFilters(c, f));
+        viewLimit = 100;
+        renderCourses(currentResults);
+      }
+      function attachFilterHandlers() {
+        $('#courseSearchBtn').addEventListener('click', doSearch);
+        $('#courseSearchInput').addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') doSearch();
+        });
+        $$(
+          '#filterCampus, #filterTerm, #filterDelivery, #filterStatus, #filterDay'
+        ).forEach((el) => {
+          el.addEventListener('change', doSearch);
+        });
+        $$('#filterStart, #filterEnd').forEach((el) => {
+          el.addEventListener('input', doSearch);
+        });
+        $('#filterClear').addEventListener('click', () => {
+          $('#filterCampus').value = '';
+          $('#filterTerm').value = '';
+          $('#filterDelivery').value = '';
+          $('#filterStatus').value = '';
+          $('#filterDay').value = '';
+          $('#filterStart').value = '';
+          $('#filterEnd').value = '';
+          doSearch();
+        });
+        $('#loadMoreBtn').addEventListener('click', () => {
+          viewLimit += VIEW_STEP;
+          renderCourses(currentResults);
+        });
+      }
+      async function initDataset() {
+        allCourses = await loadCourses();
+        doSearch();
+        renderSidebarHot();
+        $('#datasetFile').addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = () => {
+            try {
+              const json = JSON.parse(String(reader.result || '[]'));
+              if (!Array.isArray(json)) throw new Error('Invalid JSON array');
+              allCourses = json;
+              $(
+                '#datasetStatus'
+              ).textContent = `파일 ${file.name} 불러옴 · ${json.length}개`;
+              doSearch();
+            } catch (err) {
+              alert('JSON 파싱 실패: ' + err.message);
+            }
+          };
+          reader.readAsText(file);
+        });
+        $('#loadUrlBtn').addEventListener('click', async () => {
+          const url = $('#datasetUrl').value.trim();
+          if (!url) return;
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + '');
+            const json = await res.json();
+            if (!Array.isArray(json)) throw new Error('Invalid JSON array');
+            allCourses = json;
+            $('#datasetStatus').textContent = `URL 불러옴 · ${json.length}개`;
+            doSearch();
+          } catch (err) {
+            alert('가져오기 실패: ' + err.message + '\n(CORS 허용 필요)');
+          }
+        });
+      }
+      (async function () {
+        attachFilterHandlers();
+        await initDataset();
+      })();
+    </script>
+  </body>
+</html>

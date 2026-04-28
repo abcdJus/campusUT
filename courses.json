@@ -1,0 +1,106 @@
+[
+  {
+    "code": "CSC108H1",
+    "title": "Introduction to Computer Programming",
+    "dept": "Computer Science",
+    "campus": "St. George",
+    "term": "F",
+    "delivery": "In-Person",
+    "status": "Open",
+    "desc": "Python-based intro to programming.",
+    "meetings": [
+      {
+        "day": "Mon",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "St. George",
+        "room": "BA1130",
+        "instructor": "Smith"
+      },
+      {
+        "day": "Wed",
+        "start": "10:00",
+        "end": "11:00",
+        "campus": "St. George",
+        "room": "BA1130",
+        "instructor": "Smith"
+      }
+    ]
+  },
+  {
+    "code": "MAT135H1",
+    "title": "Calculus I",
+    "dept": "Mathematics",
+    "campus": "St. George",
+    "term": "F",
+    "delivery": "In-Person",
+    "status": "Waitlist",
+    "desc": "Limits, derivatives, applications.",
+    "meetings": [
+      {
+        "day": "Tue",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "St. George",
+        "room": "SS2108",
+        "instructor": "Lee"
+      },
+      {
+        "day": "Thu",
+        "start": "12:00",
+        "end": "13:00",
+        "campus": "St. George",
+        "room": "SS2108",
+        "instructor": "Lee"
+      }
+    ]
+  },
+  {
+    "code": "CSC148H1",
+    "title": "Introduction to Computer Science",
+    "dept": "Computer Science",
+    "campus": "St. George",
+    "term": "S",
+    "delivery": "Online",
+    "status": "Full",
+    "desc": "Abstract data types and algorithms in Python.",
+    "meetings": [
+      {
+        "day": "Mon",
+        "start": "14:00",
+        "end": "15:00",
+        "campus": "St. George",
+        "room": "BA1210",
+        "instructor": "Ng"
+      },
+      {
+        "day": "Wed",
+        "start": "14:00",
+        "end": "15:00",
+        "campus": "St. George",
+        "room": "BA1210",
+        "instructor": "Ng"
+      }
+    ]
+  },
+  {
+    "code": "STA130H1",
+    "title": "An Introduction to Statistical Reasoning and Data Science",
+    "dept": "Statistics",
+    "campus": "St. George",
+    "term": "F",
+    "delivery": "Hybrid",
+    "status": "Open",
+    "desc": "Data science and statistical reasoning.",
+    "meetings": [
+      {
+        "day": "Fri",
+        "start": "09:00",
+        "end": "10:00",
+        "campus": "St. George",
+        "room": "MP102",
+        "instructor": "Khan"
+      }
+    ]
+  }
+]

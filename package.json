@@ -1,0 +1,24 @@
+{
+  "name": "campustalk-rebuild",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api -c cyan,green \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:full": "concurrently -n web,api,python -c cyan,green,magenta \"npm:dev:web\" \"npm:dev:api\" \"npm:dev:python\"",
+    "dev:web": "npm --workspace apps/web run dev",
+    "dev:api": "npm --workspace apps/api run dev",
+    "dev:python": "cd services/python-api && python -m uvicorn app.main:app --reload --port 8001",
+    "build": "npm --workspaces --if-present run build",
+    "typecheck": "npm --workspaces --if-present run typecheck"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
+  }
+}

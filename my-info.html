@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>내 정보 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .avatar-uploader {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .avatar-wrap {
+        position: relative;
+        width: 72px;
+        height: 72px;
+        border-radius: 9999px;
+        overflow: hidden;
+        background: #e5e7eb;
+        box-shadow: 0 0 0 1px #e5e7eb inset;
+      }
+      .avatar-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .avatar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .avatar-btn {
+        background: #f3f4f6;
+        color: #111827;
+        border: 1px solid #e5e7eb;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .avatar-btn.primary {
+        background: #2563eb;
+        color: #fff;
+        border-color: #2563eb;
+      }
+      .avatar-hint {
+        font-size: 12px;
+        color: #6b7280;
+      }
+      .avatar-overlay {
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(17, 24, 39, 0.55);
+        color: #fff;
+        font-size: 12px;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+      .avatar-wrap:hover .avatar-overlay {
+        opacity: 1;
+      }
+      .avatar-drop {
+        border: 2px dashed #cbd5e1;
+        border-radius: 12px;
+        padding: 8px;
+        transition: border-color 0.15s ease, background 0.15s ease;
+      }
+      .avatar-drop.dragover {
+        border-color: #2563eb;
+        background: #eff6ff;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link">
+            <h2>CampusTalk</h2>
+          </a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#board">게시판</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="board-page">
+      <div class="board-header">
+        <div class="container">
+          <div class="board-nav">
+            <a href="javascript:history.back()" class="back-link">← 뒤로가기</a>
+            <h1 class="board-title">내 정보</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-content">
+        <div class="container">
+          <div
+            id="myInfoCard"
+            class="post-item"
+            style="max-width: 720px; margin: 0 auto"
+          >
+            <div class="post-info">
+              <h3 class="post-title">프로필</h3>
+              <div class="post-meta">
+                <span class="author"><strong id="myName">-</strong></span>
+                <span class="views" id="myEmail">-</span>
+              </div>
+              <p class="post-preview" id="myDetails" style="margin-top: 8px">
+                대학/전공/학번 정보를 표시합니다.
+              </p>
+            </div>
+            <div class="post-stats">
+              <button
+                id="logoutBtn"
+                class="write-post-btn"
+                style="background: #ef4444"
+              >
+                로그아웃
+              </button>
+            </div>
+          </div>
+
+          <div class="post-item" style="max-width: 720px; margin: 16px auto 0">
+            <div class="post-info">
+              <h3 class="post-title">프로필 편집</h3>
+              <form
+                id="profileForm"
+                class="form"
+                style="display: flex; flex-direction: column; gap: 10px"
+              >
+                <div class="form-group" style="display: flex; gap: 12px">
+                  <div style="flex: 1">
+                    <label for="edit-name">이름</label>
+                    <input
+                      id="edit-name"
+                      type="text"
+                      placeholder="이름"
+                      required
+                    />
+                  </div>
+                  <div style="flex: 1">
+                    <label for="edit-studentId">학번</label>
+                    <input id="edit-studentId" type="text" placeholder="학번" />
+                  </div>
+                </div>
+                <div class="form-group" style="display: flex; gap: 12px">
+                  <div style="flex: 1">
+                    <label for="edit-university">대학교</label>
+                    <input
+                      id="edit-university"
+                      type="text"
+                      placeholder="대학교"
+                    />
+                  </div>
+                  <div style="flex: 1">
+                    <label for="edit-major">전공</label>
+                    <input id="edit-major" type="text" placeholder="전공" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="edit-email">이메일 (변경 불가)</label>
+                  <input id="edit-email" type="email" disabled />
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 8px">
+                  <button type="submit" class="write-post-btn">저장</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="post-item" style="max-width: 720px; margin: 16px auto 0">
+            <div class="post-info">
+              <h3 class="post-title">비밀번호 변경</h3>
+              <form
+                id="passwordForm"
+                class="form"
+                style="display: flex; flex-direction: column; gap: 10px"
+              >
+                <div class="form-group" style="display: flex; gap: 12px">
+                  <div style="flex: 1">
+                    <label for="pwd-current">현재 비밀번호</label>
+                    <input
+                      id="pwd-current"
+                      type="password"
+                      placeholder="현재 비밀번호"
+                      required
+                    />
+                  </div>
+                  <div style="flex: 1">
+                    <label for="pwd-new">새 비밀번호</label>
+                    <input
+                      id="pwd-new"
+                      type="password"
+                      placeholder="새 비밀번호"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="pwd-new2">새 비밀번호 확인</label>
+                  <input
+                    id="pwd-new2"
+                    type="password"
+                    placeholder="새 비밀번호 확인"
+                    required
+                  />
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 8px">
+                  <button type="submit" class="write-post-btn">
+                    비밀번호 변경
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="post-item" style="max-width: 720px; margin: 16px auto 0">
+            <div class="post-info">
+              <h3 class="post-title">프로필 이미지</h3>
+              <div class="avatar-drop">
+                <div class="avatar-uploader">
+                  <div class="avatar-wrap" id="avatarWrap">
+                    <img id="avatarPreview" alt="avatar" />
+                    <div class="avatar-overlay">이미지 변경</div>
+                  </div>
+                  <div class="avatar-actions">
+                    <label class="avatar-btn primary" for="avatarInput"
+                      >이미지 선택</label
+                    >
+                    <button id="avatarRemove" type="button" class="avatar-btn">
+                      이미지 삭제
+                    </button>
+                  </div>
+                </div>
+                <p class="avatar-hint" style="margin-top: 8px">
+                  JPG/PNG 권장, 최대 1MB. 이미지를 드래그 앤 드롭해도 됩니다.
+                </p>
+                <input
+                  id="avatarInput"
+                  type="file"
+                  accept="image/*"
+                  style="display: none"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        try {
+          const local = localStorage.getItem('campusTalkCurrentUser');
+          const session = sessionStorage.getItem('campusTalkCurrentUser');
+          const user = local
+            ? JSON.parse(local)
+            : session
+            ? JSON.parse(session)
+            : null;
+          if (!user) {
+            alert('로그인이 필요합니다.');
+            location.href = 'login.html';
+            return;
+          }
+          document.getElementById('myName').textContent = user.name || '-';
+          document.getElementById('myEmail').textContent = user.email || '-';
+          const detail = [user.university, user.major, user.studentId]
+            .filter(Boolean)
+            .join(' / ');
+          document.getElementById('myDetails').textContent =
+            detail || '등록된 추가 정보가 없습니다.';
+          const logoutBtn = document.getElementById('logoutBtn');
+          if (logoutBtn)
+            logoutBtn.addEventListener('click', () => {
+              localStorage.removeItem('campusTalkCurrentUser');
+              sessionStorage.removeItem('campusTalkCurrentUser');
+              location.href = 'index.html';
+            });
+
+          // 편집 폼 채우기
+          const nameInput = document.getElementById('edit-name');
+          const studentIdInput = document.getElementById('edit-studentId');
+          const univInput = document.getElementById('edit-university');
+          const majorInput = document.getElementById('edit-major');
+          const emailInput = document.getElementById('edit-email');
+          nameInput.value = user.name || '';
+          studentIdInput.value = user.studentId || '';
+          univInput.value = user.university || '';
+          majorInput.value = user.major || '';
+          emailInput.value = user.email || '';
+
+          // 저장 처리
+          const profileForm = document.getElementById('profileForm');
+          profileForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const updated = {
+              ...user,
+              name: nameInput.value.trim(),
+              studentId: studentIdInput.value.trim(),
+              university: univInput.value.trim(),
+              major: majorInput.value.trim(),
+            };
+            if (!updated.name) {
+              alert('이름을 입력하세요.');
+              return;
+            }
+
+            // Users 갱신
+            try {
+              const users = JSON.parse(
+                localStorage.getItem('campusTalkUsers') || '[]'
+              );
+              const idx = users.findIndex((u) => u.email === user.email);
+              if (idx !== -1) {
+                users[idx] = { ...users[idx], ...updated };
+                localStorage.setItem('campusTalkUsers', JSON.stringify(users));
+              }
+            } catch (e) {}
+
+            // 세션 갱신 (remember 기준 유지)
+            const storedLocal = localStorage.getItem('campusTalkCurrentUser');
+            if (storedLocal) {
+              localStorage.setItem(
+                'campusTalkCurrentUser',
+                JSON.stringify(updated)
+              );
+            } else {
+              sessionStorage.setItem(
+                'campusTalkCurrentUser',
+                JSON.stringify(updated)
+              );
+            }
+
+            // UI 갱신 및 알림
+            document.getElementById('myName').textContent = updated.name || '-';
+            document.getElementById('myEmail').textContent =
+              updated.email || '-';
+            const newDetail = [
+              updated.university,
+              updated.major,
+              updated.studentId,
+            ]
+              .filter(Boolean)
+              .join(' / ');
+            document.getElementById('myDetails').textContent =
+              newDetail || '등록된 추가 정보가 없습니다.';
+
+            // 토스트
+            const toast = document.createElement('div');
+            toast.textContent = '프로필이 저장되었습니다';
+            toast.style.cssText =
+              'position:fixed; top:20px; right:20px; background:#10b981; color:#fff; padding:10px 14px; border-radius:8px; z-index:10000; box-shadow:0 8px 20px rgba(0,0,0,.2); opacity:0; transform:translateY(-10px); transition:all .2s ease;';
+            document.body.appendChild(toast);
+            requestAnimationFrame(() => {
+              toast.style.opacity = '1';
+              toast.style.transform = 'translateY(0)';
+            });
+            setTimeout(() => {
+              toast.style.opacity = '0';
+              toast.style.transform = 'translateY(-10px)';
+              setTimeout(() => toast.remove(), 200);
+            }, 1600);
+
+            // 네비바 갱신을 위해 새로고침
+            setTimeout(() => location.reload(), 900);
+          });
+
+          // 비밀번호 변경 처리
+          const pwdForm = document.getElementById('passwordForm');
+          pwdForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const current = (
+              document.getElementById('pwd-current').value || ''
+            ).trim();
+            const p1 = (document.getElementById('pwd-new').value || '').trim();
+            const p2 = (document.getElementById('pwd-new2').value || '').trim();
+            if (!current || !p1 || !p2) {
+              alert('모든 항목을 입력하세요.');
+              return;
+            }
+            if (p1.length < 8) {
+              alert('비밀번호는 8자 이상이어야 합니다.');
+              return;
+            }
+            if (p1 !== p2) {
+              alert('새 비밀번호가 일치하지 않습니다.');
+              return;
+            }
+
+            // 현재 비밀번호 확인
+            const users = JSON.parse(
+              localStorage.getItem('campusTalkUsers') || '[]'
+            );
+            const idx = users.findIndex((u) => u.email === user.email);
+            if (idx === -1) {
+              alert('계정을 찾을 수 없습니다.');
+              return;
+            }
+            const currentHash = await hashString(current);
+            const ok =
+              (users[idx].passwordHash &&
+                users[idx].passwordHash === currentHash) ||
+              users[idx].password === current;
+            if (!ok) {
+              alert('현재 비밀번호가 올바르지 않습니다.');
+              return;
+            }
+
+            // 새 비밀번호 저장
+            users[idx].passwordHash = await hashString(p1);
+            delete users[idx].password;
+            localStorage.setItem('campusTalkUsers', JSON.stringify(users));
+            alert('비밀번호가 변경되었습니다. 다음 로그인부터 적용됩니다.');
+            (document.getElementById('pwd-current').value = ''),
+              (document.getElementById('pwd-new').value = ''),
+              (document.getElementById('pwd-new2').value = '');
+          });
+
+          // 아바타 표시/업로드/삭제/드롭
+          const avatarImg = document.getElementById('avatarPreview');
+          const avatarInput = document.getElementById('avatarInput');
+          const avatarRemove = document.getElementById('avatarRemove');
+          const avatarWrap = document.getElementById('avatarWrap');
+          const dropZone = document.querySelector('.avatar-drop');
+          if (user.avatarDataUrl) avatarImg.src = user.avatarDataUrl;
+
+          function showAvatarToast(msg, color) {
+            const t = document.createElement('div');
+            t.textContent = msg;
+            t.style.cssText = `position:fixed; top:20px; right:20px; background:${color}; color:#fff; padding:10px 14px; border-radius:8px; z-index:10000; box-shadow:0 8px 20px rgba(0,0,0,.2); opacity:0; transform:translateY(-10px); transition:all .2s ease;`;
+            document.body.appendChild(t);
+            requestAnimationFrame(() => {
+              t.style.opacity = '1';
+              t.style.transform = 'translateY(0)';
+            });
+            setTimeout(() => {
+              t.style.opacity = '0';
+              t.style.transform = 'translateY(-10px)';
+              setTimeout(() => t.remove(), 200);
+            }, 1600);
+          }
+
+          function validateFile(file) {
+            const maxBytes = 1024 * 1024; // 1MB
+            if (!file.type.startsWith('image/')) {
+              showAvatarToast('이미지 파일만 업로드 가능합니다.', '#ef4444');
+              return false;
+            }
+            if (file.size > maxBytes) {
+              showAvatarToast(
+                '파일 크기는 최대 1MB까지 가능합니다.',
+                '#ef4444'
+              );
+              return false;
+            }
+            return true;
+          }
+
+          function handleFile(file) {
+            if (!file || !validateFile(file)) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+              const dataUrl = reader.result;
+              avatarImg.src = dataUrl;
+              // users 갱신
+              try {
+                const users = JSON.parse(
+                  localStorage.getItem('campusTalkUsers') || '[]'
+                );
+                const idx = users.findIndex((u) => u.email === user.email);
+                if (idx !== -1) {
+                  users[idx].avatarDataUrl = dataUrl;
+                  localStorage.setItem(
+                    'campusTalkUsers',
+                    JSON.stringify(users)
+                  );
+                }
+              } catch (e) {}
+              // 세션 갱신
+              const storedLocal = localStorage.getItem('campusTalkCurrentUser');
+              const updatedSession = { ...user, avatarDataUrl: dataUrl };
+              if (storedLocal) {
+                localStorage.setItem(
+                  'campusTalkCurrentUser',
+                  JSON.stringify(updatedSession)
+                );
+              } else {
+                sessionStorage.setItem(
+                  'campusTalkCurrentUser',
+                  JSON.stringify(updatedSession)
+                );
+              }
+              showAvatarToast('프로필 이미지가 저장되었습니다.', '#2563eb');
+              setTimeout(() => location.reload(), 600);
+            };
+            reader.readAsDataURL(file);
+          }
+
+          avatarInput.addEventListener('change', function () {
+            const file = this.files && this.files[0];
+            handleFile(file);
+          });
+
+          avatarRemove.addEventListener('click', function () {
+            avatarImg.src = '';
+            try {
+              const users = JSON.parse(
+                localStorage.getItem('campusTalkUsers') || '[]'
+              );
+              const idx = users.findIndex((u) => u.email === user.email);
+              if (idx !== -1) {
+                delete users[idx].avatarDataUrl;
+                localStorage.setItem('campusTalkUsers', JSON.stringify(users));
+              }
+            } catch (e) {}
+            const storedLocal = localStorage.getItem('campusTalkCurrentUser');
+            const updatedSession = { ...user };
+            delete updatedSession.avatarDataUrl;
+            if (storedLocal) {
+              localStorage.setItem(
+                'campusTalkCurrentUser',
+                JSON.stringify(updatedSession)
+              );
+            } else {
+              sessionStorage.setItem(
+                'campusTalkCurrentUser',
+                JSON.stringify(updatedSession)
+              );
+            }
+            showAvatarToast('프로필 이미지가 삭제되었습니다.', '#10b981');
+            setTimeout(() => location.reload(), 600);
+          });
+
+          ['dragover', 'dragleave', 'drop'].forEach((evt) =>
+            dropZone.addEventListener(evt, (e) => {
+              e.preventDefault();
+              if (evt === 'dragover') dropZone.classList.add('dragover');
+              if (evt === 'dragleave') dropZone.classList.remove('dragover');
+              if (evt === 'drop') {
+                dropZone.classList.remove('dragover');
+                const file =
+                  e.dataTransfer &&
+                  e.dataTransfer.files &&
+                  e.dataTransfer.files[0];
+                handleFile(file);
+              }
+            })
+          );
+
+          async function hashString(input) {
+            const enc = new TextEncoder();
+            const data = enc.encode(input);
+            const digest = await crypto.subtle.digest('SHA-256', data);
+            const bytes = Array.from(new Uint8Array(digest));
+            return bytes.map((b) => b.toString(16).padStart(2, '0')).join('');
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      });
+    </script>
+  </body>
+</html>

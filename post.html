@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글 보기 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="board-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* 댓글 입력 UI 개선 */
+      .comment-editor {
+        transition: box-shadow 0.15s ease, border-color 0.15s ease,
+          background 0.15s ease;
+      }
+      .comment-editor:focus-within {
+        border-color: #93c5fd !important;
+        box-shadow: 0 0 0 3px #dbeafe;
+        background: #ffffff !important;
+      }
+      #commentText::placeholder {
+        color: #9ca3af;
+      }
+      .reply-form textarea::placeholder {
+        color: #9ca3af;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link">
+            <h2>CampusTalk</h2>
+          </a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item dropdown">
+            <a href="index.html#board" class="nav-link">게시판 ▼</a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="free-board.html" class="dropdown-link"
+                  >💬 자유게시판</a
+                >
+              </li>
+              <li>
+                <a href="class-info.html" class="dropdown-link">📚 수업정보</a>
+              </li>
+              <li>
+                <a href="exam-info.html" class="dropdown-link">📝 시험정보</a>
+              </li>
+              <li>
+                <a href="job-info.html" class="dropdown-link">💼 취업정보</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#market" class="nav-link">중고거래</a>
+          </li>
+          <li class="nav-item">
+            <a href="index.html#timetable" class="nav-link">시간표</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">로그인</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="board-page">
+      <div class="board-header">
+        <div class="container">
+          <div class="board-nav">
+            <a href="javascript:history.back()" class="back-link">← 뒤로가기</a>
+            <h1 class="board-title">게시글 보기</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-content">
+        <div class="container">
+          <article class="post-detail">
+            <header class="post-detail-header">
+              <h2 id="postTitle">제목</h2>
+              <div class="post-detail-meta">
+                <span id="postAuthor">익명</span>
+                <span id="postTime">방금 전</span>
+                <span id="postViews">조회 0</span>
+              </div>
+            </header>
+            <section id="postContent" class="post-detail-content"></section>
+            <section
+              id="postFiles"
+              class="post-detail-files"
+              style="display: none"
+            ></section>
+            <div class="post-detail-reactions" style="margin-top: 12px">
+              <button id="likeBtn" class="btn-like">👍 0</button>
+            </div>
+          </article>
+          <section class="post-comments" style="margin-top: 24px">
+            <h3 id="commentsTitle" style="margin-bottom: 12px">댓글</h3>
+            <form
+              id="commentForm"
+              class="comment-form"
+              style="display: flex; flex-direction: column; gap: 8px"
+            >
+              <div
+                class="comment-editor"
+                style="
+                  display: flex;
+                  gap: 12px;
+                  padding: 12px;
+                  border: 1px solid #e5e7eb;
+                  border-radius: 12px;
+                  background: #f9fafb;
+                "
+              >
+                <div
+                  class="avatar"
+                  aria-hidden="true"
+                  style="
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 9999px;
+                    background: #e5e7eb;
+                    flex-shrink: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #666;
+                    font-size: 14px;
+                  "
+                >
+                  익
+                </div>
+                <textarea
+                  id="commentText"
+                  rows="3"
+                  placeholder="댓글을 입력하세요"
+                  maxlength="1000"
+                  required
+                  style="
+                    resize: none;
+                    width: 100%;
+                    padding: 8px 0;
+                    border: none;
+                    outline: none;
+                    background: transparent;
+                  "
+                ></textarea>
+              </div>
+              <div
+                class="comment-actions"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <div
+                  class="comment-hints"
+                  style="font-size: 12px; color: #6b7280"
+                >
+                  <span id="commentCount">0</span>/1000 • Ctrl+Enter로 등록
+                </div>
+                <button
+                  id="commentSubmitBtn"
+                  type="submit"
+                  class="write-post-btn"
+                  disabled
+                >
+                  등록
+                </button>
+              </div>
+            </form>
+            <div
+              id="commentsList"
+              class="comments-list"
+              style="margin-top: 16px"
+            ></div>
+          </section>
+          <div class="post-detail-actions" style="margin-top: 16px">
+            <a id="backToBoard" class="write-post-btn" href="#">목록으로</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="post-script.js"></script>
+  </body>
+</html>

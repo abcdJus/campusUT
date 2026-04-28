@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>중고거래 - CampusTalk</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <a href="index.html" class="logo-link"><h2>CampusTalk</h2></a>
+        </div>
+        <ul class="nav-menu">
+          <li class="nav-item">
+            <a href="index.html#board" class="nav-link">게시판</a>
+          </li>
+          <li class="nav-item">
+            <a href="market.html" class="nav-link">중고거래</a>
+          </li>
+          <li class="nav-item">
+            <a href="timetable.html" class="nav-link">시간표</a>
+          </li>
+          <li class="nav-item">
+            <a href="course-search.html" class="nav-link">과목검색</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link login-btn">로그인</a>
+          </li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span><span class="bar"></span
+          ><span class="bar"></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="market" style="padding-top: 90px">
+      <div class="container">
+        <h2 class="section-title">중고거래</h2>
+        <div class="market-categories">
+          <div class="market-category active">전체</div>
+          <div class="market-category">전공책</div>
+          <div class="market-category">전자기기</div>
+          <div class="market-category">의류</div>
+          <div class="market-category">기타</div>
+        </div>
+        <div class="market-items">
+          <div class="market-item">
+            <div class="item-image">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23f0f0f0'/><text x='100' y='80' text-anchor='middle' fill='%23999'>📚</text></svg>"
+                alt="전공책"
+              />
+            </div>
+            <div class="item-info">
+              <h3 class="item-title">자료구조론 전공책</h3>
+              <p class="item-price">15,000원</p>
+              <p class="item-condition">상태: 양호</p>
+              <div class="item-footer">
+                <span class="item-location">공학관</span>
+                <span class="item-time">1시간 전</span>
+              </div>
+            </div>
+          </div>
+          <div class="market-item">
+            <div class="item-image">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23f0f0f0'/><text x='100' y='80' text-anchor='middle' fill='%23999'>💻</text></svg>"
+                alt="노트북"
+              />
+            </div>
+            <div class="item-info">
+              <h3 class="item-title">맥북 프로 13인치</h3>
+              <p class="item-price">800,000원</p>
+              <p class="item-condition">상태: 최상</p>
+              <div class="item-footer">
+                <span class="item-location">도서관</span>
+                <span class="item-time">3시간 전</span>
+              </div>
+            </div>
+          </div>
+          <div class="market-item">
+            <div class="item-image">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 150'><rect width='200' height='150' fill='%23f0f0f0'/><text x='100' y='80' text-anchor='middle' fill='%23999'>👕</text></svg>"
+                alt="의류"
+              />
+            </div>
+            <div class="item-info">
+              <h3 class="item-title">대학 로고 후드티</h3>
+              <p class="item-price">25,000원</p>
+              <p class="item-condition">상태: 보통</p>
+              <div class="item-footer">
+                <span class="item-location">학생회관</span>
+                <span class="item-time">5시간 전</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="market-actions">
+          <button class="sell-item-btn">판매하기</button>
+          <button class="view-more-btn">더보기</button>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
