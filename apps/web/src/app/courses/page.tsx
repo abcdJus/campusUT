@@ -1,15 +1,8 @@
 import { Search } from "lucide-react";
 import { api } from "@/lib/api";
 
-export const dynamic = "force-dynamic";
-
-type PageProps = {
-  searchParams: Promise<{ q?: string }>;
-};
-
-export default async function CoursesPage({ searchParams }: PageProps) {
-  const { q } = await searchParams;
-  const { items: courses } = await api.getCourses(q);
+export default async function CoursesPage() {
+  const { items: courses } = await api.getCourses();
 
   return (
     <main className="page-shell narrow">
@@ -20,7 +13,7 @@ export default async function CoursesPage({ searchParams }: PageProps) {
         </div>
       </div>
       <form className="search-row">
-        <input name="q" defaultValue={q ?? ""} placeholder="Course code, title, department" />
+        <input name="q" placeholder="Course code, title, department" />
         <button className="icon-button filled" aria-label="Search courses" type="submit">
           <Search size={18} />
         </button>

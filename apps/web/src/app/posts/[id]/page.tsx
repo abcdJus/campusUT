@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MessageCircle, ThumbsUp } from "lucide-react";
+import { seedPosts } from "@campustalk/shared";
 import { api } from "@/lib/api";
 import { timeAgo } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
+export function generateStaticParams() {
+  return seedPosts.map((post) => ({ id: post.id }));
+}
 
 type PageProps = {
   params: Promise<{ id: string }>;

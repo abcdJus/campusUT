@@ -1,8 +1,6 @@
 import { api } from "@/lib/api";
 import { formatCurrency, timeAgo } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
-
 export default async function MarketPage() {
   const { items } = await api.getMarketItems();
 

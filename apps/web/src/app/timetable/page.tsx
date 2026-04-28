@@ -1,7 +1,5 @@
 import { api } from "@/lib/api";
 
-export const dynamic = "force-dynamic";
-
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri"] as const;
 
 export default async function TimetablePage() {

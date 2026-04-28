@@ -5,8 +5,6 @@ import { BoardIcon } from "@/components/BoardIcon";
 import { PostList } from "@/components/PostList";
 import { formatCurrency } from "@/lib/format";
 
-export const dynamic = "force-dynamic";
-
 export default async function HomePage() {
   const [{ items: boards }, { items: posts }, { items: courses }, { items: marketItems }] =
     await Promise.all([

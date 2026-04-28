@@ -1,9 +1,11 @@
 node_modules
 .next
+out
 dist
 build
 .env
 .env.local
+.netlify
 .venv
 __pycache__
 *.pyc
@@ -13,3 +15,6 @@ npm-debug.log*
 .codex-dev.*.log
 *.log
 *.tsbuildinfo
+
+# Local Netlify folder
+.netlify

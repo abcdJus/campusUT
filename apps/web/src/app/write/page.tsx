@@ -1,8 +1,6 @@
 import { api } from "@/lib/api";
 import { WritePostForm } from "@/components/WritePostForm";
 
-export const dynamic = "force-dynamic";
-
 export default async function WritePage() {
   const { items: boards } = await api.getBoards();
 
